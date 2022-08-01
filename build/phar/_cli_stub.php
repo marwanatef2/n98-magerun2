@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-Phar::mapPhar('n98-magerun2.phar');
+Phar::mapPhar('robusta-magerun2.phar');
 
-$application = require 'phar://n98-magerun2.phar/src/bootstrap.php';
+$application = require 'phar://robusta-magerun2.phar/src/bootstrap.php';
 $application->setPharMode(true);
 $application->run();
 

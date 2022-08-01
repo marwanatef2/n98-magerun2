@@ -51,4 +51,4 @@ jobs:
         run: bash ./build.sh
 
       - name: Test self-update command
-        run: php ./n98-magerun2.phar self-update --unstable
+        run: php ./robusta-magerun2.phar self-update --unstable

@@ -4,4 +4,4 @@
 ## Usage: mr2-dev-23 <options> <arguments>
 ## Example: "mr2-dev-23 sys:info"
 
-bin/n98-magerun2 --root-dir=/opt/magento-test-environments/magento_2_3_7_p2 $@
+bin/robusta-magerun2 --root-dir=/opt/magento-test-environments/magento_2_3_7_p2 $@

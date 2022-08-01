@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## Description: Run n98-magerun2 code checks
+## Description: Run robusta-magerun2 code checks
 ## Usage: qa
 ## Example: "qa"
 

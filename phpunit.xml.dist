@@ -20,7 +20,7 @@
         <env name="MAGERUN_SKIP_CORE_COMMANDS" value="1"/>
     </php>
     <testsuites>
-        <testsuite name="n98-magerun2-tests">
+        <testsuite name="robusta-magerun2-tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

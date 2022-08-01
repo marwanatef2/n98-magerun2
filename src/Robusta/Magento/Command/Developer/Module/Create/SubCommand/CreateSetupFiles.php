@@ -1,0 +1,64 @@
+<?php
+
+namespace Robusta\Magento\Command\Developer\Module\Create\SubCommand;
+
+use Robusta\Magento\Command\SubCommand\AbstractSubCommand;
+
+/**
+ * Class CreateSetupFiles
+ * @package Robusta\Magento\Command\Developer\Module\Create\SubCommand
+ */
+class CreateSetupFiles extends AbstractSubCommand
+{
+    /**
+     * @return void
+     */
+    public function execute()
+    {
+        $setupFolder = $this->config->getString('moduleDirectory') . '/Setup';
+
+        \file_put_contents(
+            $setupFolder . '/InstallSchema.php',
+            $this->getCommand()->getHelper('twig')->render(
+                'dev/module/create/app/code/module/Setup/InstallSchema.php.twig',
+                $this->config->getArray('twigVars')
+            )
+        );
+        $this->output->writeln(
+            '<info>Created file: <comment>' . $setupFolder . '/InstallSchema.php' . '<comment></info>'
+        );
+
+        \file_put_contents(
+            $setupFolder . '/InstallData.php',
+            $this->getCommand()->getHelper('twig')->render(
+                'dev/module/create/app/code/module/Setup/InstallData.php.twig',
+                $this->config->getArray('twigVars')
+            )
+        );
+        $this->output->writeln(
+            '<info>Created file: <comment>' . $setupFolder . '/InstallData.php' . '<comment></info>'
+        );
+
+        \file_put_contents(
+            $setupFolder . '/UpgradeSchema.php',
+            $this->getCommand()->getHelper('twig')->render(
+                'dev/module/create/app/code/module/Setup/UpgradeSchema.php.twig',
+                $this->config->getArray('twigVars')
+            )
+        );
+        $this->output->writeln(
+            '<info>Created file: <comment>' . $setupFolder . '/UpgradeSchema.php' . '<comment></info>'
+        );
+
+        \file_put_contents(
+            $setupFolder . '/UpgradeData.php',
+            $this->getCommand()->getHelper('twig')->render(
+                'dev/module/create/app/code/module/Setup/UpgradeData.php.twig',
+                $this->config->getArray('twigVars')
+            )
+        );
+        $this->output->writeln(
+            '<info>Created file: <comment>' . $setupFolder . '/UpgradeData.php' . '<comment></info>'
+        );
+    }
+}

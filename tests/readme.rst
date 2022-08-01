@@ -2,18 +2,18 @@
 Test Framework
 **************
 
-We deliver a test framework for n98-magerun2 commands.
+We deliver a test framework for robusta-magerun2 commands.
 
 =============
 Configuration
 =============
 
-Set the environment variable `N98_MAGERUN2_TEST_MAGENTO_ROOT` with a path to a magento installation
+Set the environment variable `Robusta_MAGERUN2_TEST_MAGENTO_ROOT` with a path to a magento installation
 which can be used to run tests.
 
 i.e.
 
-export N98_MAGERUN2_TEST_MAGENTO_ROOT=/home/myinstallation
+export Robusta_MAGERUN2_TEST_MAGENTO_ROOT=/home/myinstallation
 
 =========
 Run Tests
@@ -27,7 +27,7 @@ at once.
 
    composer.phar --dev install
 
-Run PHPUnit in n98-magerun2 root folder.
+Run PHPUnit in robusta-magerun2 root folder.
 If you have installed with composer you can run::
 
    vendor/bin/phpunit

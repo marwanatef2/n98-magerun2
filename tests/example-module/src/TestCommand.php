@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace N98MagerunExampleModule;
+namespace RobustaMagerunExampleModule;
 
-use N98\Magento\Command\AbstractMagentoCommand;
+use Robusta\Magento\Command\AbstractMagentoCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

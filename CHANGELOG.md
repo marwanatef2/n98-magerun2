@@ -123,7 +123,7 @@ RECENT CHANGES
 
 - Add: Magento 2.4.2 (by Christian Münch)
 - Imp: Change autoloading from PSR-0 to PSR-4 (by Tom Klingenberg)
-- Imp: Updated n98/junit-xml dependency (by Tom Klingenberg)
+- Imp: Updated robusta/junit-xml dependency (by Tom Klingenberg)
 - Imp: Updated Symfony dependencies (Dependabot)
 - Imp: Updated faker dependency (Dependabot)
 - Imp: Updated captainhook dependency (Dependabot)
@@ -198,20 +198,20 @@ RECENT CHANGES
 -----
 
 - Imp: Add tests for ConfigurationLoader (by Christian Münch)
-- Fix: #525: n98-magerun for magento repository (reporter YevgenK)
+- Fix: #525: robusta-magerun for magento repository (reporter YevgenK)
 - Fix: #523: --skip-root-check throws an error (reporter Tadeu Rodrigues)
 
 4.0.2
 -----
 
-- Fix: #519: Fix loading `app/etc/n98-magerun.yaml` (by cmacdonald-au)
+- Fix: #519: Fix loading `app/etc/robusta-magerun.yaml` (by cmacdonald-au)
 - Imp: #518: Improved README markdown syntax (by Jeroen Vermeulen)
 
 4.0.1
 -----
 
 - Fix: Wrong integration:command description
-- Fix: #517: Fatal error when /etc/n98-magerun2.yaml exists
+- Fix: #517: Fatal error when /etc/robusta-magerun2.yaml exists
 
 4.0.0
 -----
@@ -357,7 +357,7 @@ RECENT CHANGES
 - Update readme.rst (by Leandro F. L)
 - Fix: #377 sys:cron:run - translation is not loaded (by Christian Münch)
 - Fix: #381 Area code not set (by Christian Münch)
-- Fix: #302 Replace n98-magerun.phar witg n98-magerun2.phar Christian Münch)
+- Fix: #302 Replace robusta-magerun.phar witg robusta-magerun2.phar Christian Münch)
 - Fix: #388 Add correct default for --add-time option (by Christian Münch)
 
 2.2.0
@@ -625,7 +625,7 @@ RECENT CHANGES
 
 1.0.0
 -----
-The first n98-magerun2 stable release to power the next-generation
+The first robusta-magerun2 stable release to power the next-generation
 open source digital commerce platform, Magento 2.0.
 
 ---

@@ -1,0 +1,7 @@
+---
+autoloaders_psr4:
+  RobustaMagerunExampleModule\: '%module%/src'
+
+commands:
+  customCommands:
+    - RobustaMagerunExampleModule\TestCommand

@@ -1,0 +1,200 @@
+<?php
+
+namespace Robusta\Magento\Command\Config\Store;
+
+use Robusta\Magento\Command\TestCase;
+
+class GetCommandTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function nullValues()
+    {
+        $this->assertDisplayRegExp(
+            [
+                'command'   => 'config:store:set',
+                '--no-null' => null,
+                'path'      => 'robusta_magerun/foo/bar',
+                'value'     => 'NULL',
+            ],
+            '~^robusta_magerun/foo/bar => NULL$~'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'          => 'config:store:get',
+                '--magerun-script' => null,
+                'path'             => 'robusta_magerun/foo/bar',
+            ],
+            'config:store:set --no-null --scope-id=0 --scope=default'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:set',
+                'path'    => 'robusta_magerun/foo/bar',
+                'value'   => 'NULL',
+            ],
+            'robusta_magerun/foo/bar => NULL (NULL/"unknown" value)'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:get',
+                'path'    => 'robusta_magerun/foo/bar',
+            ],
+            '| robusta_magerun/foo/bar | default | 0        | NULL (NULL/"unknown" value) |'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'          => 'config:store:get',
+                '--magerun-script' => true, # needed to not use the previous output cache
+                'path'             => 'robusta_magerun/foo/bar',
+            ],
+            'config:store:set --scope-id=0 --scope=default -- \'robusta_magerun/foo/bar\' NULL'
+        );
+    }
+
+    public function provideFormatsWithNull()
+    {
+        return [
+            [null, '| robusta_magerun/foo/bar | default | 0        | NULL (NULL/"unknown" value) |'],
+            ['csv', 'robusta_magerun/foo/bar,default,0,NULL'],
+            ['json', '"Value": null'],
+            ['xml', '<Value>NULL</Value>'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideFormatsWithNull
+     */
+    public function nullWithFormat($format, $expected)
+    {
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:set',
+                'path'    => 'robusta_magerun/foo/bar',
+                'value'   => 'NULL',
+            ],
+            'robusta_magerun/foo/bar => NULL (NULL/"unknown" value)'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'  => 'config:store:get',
+                '--format' => $format,
+                'path'     => 'robusta_magerun/foo/bar',
+            ],
+            $expected
+        );
+    }
+
+    public function testExecute()
+    {
+        /**
+         * Add a new entry (to test for it)
+         */
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:set',
+                'path'    => 'robusta_magerun/foo/bar',
+                'value'   => '1234',
+            ],
+            'robusta_magerun/foo/bar => 1234'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:get',
+                'path'    => 'robusta_magerun/foo/bar',
+            ],
+            '| robusta_magerun/foo/bar | default | 0        | 1234  |'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'         => 'config:store:get',
+                'path'            => 'robusta_magerun/foo/bar',
+                '--update-script' => true,
+            ],
+            "\$installer->setConfigData('robusta_magerun/foo/bar', '1234');"
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'          => 'config:store:get',
+                'path'             => 'robusta_magerun/foo/bar',
+                '--magerun-script' => true,
+            ],
+            "config:store:set --scope-id=0 --scope=default -- 'robusta_magerun/foo/bar' '1234'"
+        );
+
+        /**
+         * Dump CSV
+         */
+        $input = [
+            'command'  => 'config:store:get',
+            'path'     => 'robusta_magerun/foo/bar',
+            '--format' => 'csv',
+        ];
+        $this->assertDisplayContains($input, 'Path,Scope,Scope-ID,Value');
+        $this->assertDisplayContains($input, 'robusta_magerun/foo/bar,default,0,1234');
+
+        /**
+         * Dump XML
+         */
+        $input = [
+            'command'  => 'config:store:get',
+            'path'     => 'robusta_magerun/foo/bar',
+            '--format' => 'xml',
+        ];
+        $this->assertDisplayContains($input, '<table>');
+        $this->assertDisplayContains($input, '<Value>1234</Value>');
+
+        /**
+         * Dump JSON
+         */
+        $this->assertDisplayRegExp(
+            [
+                'command'  => 'config:store:get',
+                'path'     => 'robusta_magerun/foo/bar',
+                '--format' => 'json',
+            ],
+            '/"Value":\s*"1234"/'
+        );
+    }
+
+    public function testItAddsScopeIdFilterOnZero()
+    {
+        $this->assertDisplayContains(
+            [
+                'command' => 'config:store:set',
+                'path'    => 'robusta_magerun/foo/bar',
+                'value'   => '1234',
+            ],
+            'robusta_magerun/foo/bar => 1234'
+        );
+
+        $this->assertDisplayContains(
+            [
+                'command'    => 'config:store:set',
+                'path'       => 'robusta_magerun/foo/bar',
+                'value'      => '1234',
+                '--scope-id' => '1',
+            ],
+            'robusta_magerun/foo/bar => 1234'
+        );
+
+        $this->assertDisplayNotContains(
+            [
+                'command'    => 'config:store:get',
+                'path'       => 'robusta_magerun/foo/bar',
+                '--scope-id' => '0',
+            ],
+            'robusta_magerun/foo/bar | default | 1        | 1234'
+        );
+    }
+}

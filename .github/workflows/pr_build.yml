@@ -52,7 +52,7 @@ jobs:
         run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Set application name
-        run: cat box.json.dist | jq -r '.replacements.application_name = "n98-magerun2-dev ${{ env.BRANCH_NAME }}"' > box.json
+        run: cat box.json.dist | jq -r '.replacements.application_name = "robusta-magerun2-dev ${{ env.BRANCH_NAME }}"' > box.json
 
       - name: Create phar
         run: bash ./build.sh
@@ -60,8 +60,8 @@ jobs:
       - name: Upload all artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: n98-magerun2.phar
-          path: ${{ github.workspace }}/n98-magerun2.phar
+          name: robusta-magerun2.phar
+          path: ${{ github.workspace }}/robusta-magerun2.phar
 
       - name: Test run phar file
-        run: php ./n98-magerun2.phar --version
+        run: php ./robusta-magerun2.phar --version

@@ -8,7 +8,7 @@ set -euo pipefail
 IFS=$'\n\t'
 PHP_BIN="php"
 BOX_BIN="./box.phar"
-PHAR_OUTPUT_FILE="./n98-magerun2.phar"
+PHAR_OUTPUT_FILE="./robusta-magerun2.phar"
 COMPOSER_BIN="composer"
 
 function system_setup() {
@@ -73,7 +73,7 @@ function find_commit_timestamp() {
 function create_new_phar() {
   # set composer suffix, otherwise Composer will generate a file with a unique identifier
   # which will then create a no reproducable phar file with a differenz MD5
-  $COMPOSER_BIN config autoloader-suffix N98MagerunNTS
+  $COMPOSER_BIN config autoloader-suffix RobustaMagerunNTS
 
   # Run install again to get the latest install.php and install.json file
   $COMPOSER_BIN install

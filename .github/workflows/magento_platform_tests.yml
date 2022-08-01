@@ -161,7 +161,7 @@ jobs:
       - name: Define Magento ROOT for tests
         run: echo "Set Magento root to $WORKSPACE"
         env:
-          N98_MAGERUN2_TEST_MAGENTO_ROOT: ${{ github.workspace }}/magento
+          Robusta_MAGERUN2_TEST_MAGENTO_ROOT: ${{ github.workspace }}/magento
 
       # https://github.com/marketplace/actions/setup-php-action#matrix-setup
       - name: Setup PHP
@@ -243,10 +243,10 @@ jobs:
             --elasticsearch-port=9200;
         if: matrix.use-git-repository == true
 
-      - name: Install ${{ matrix.magento-version }} via n98-magerun2
+      - name: Install ${{ matrix.magento-version }} via robusta-magerun2
         run: |
           mysqladmin -h127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} -uroot -proot create magento; \
-          bin/n98-magerun2 --ansi install \
+          bin/robusta-magerun2 --ansi install \
           --magentoVersionByName="${{ matrix.magento-version }}" --installationFolder="$GITHUB_WORKSPACE/magento" \
           --dbHost=127.0.0.1 --dbPort=${{ job.services.mysql.ports['3306'] }} --dbUser=root --dbPass=root --dbName="magento" \
           --useDefaultConfigParams=yes \
@@ -286,4 +286,4 @@ jobs:
           php-version: ${{ matrix.php-version }}
 
       - name: Run phar functional tests
-        run: bash tests/phar-test.sh "./n98-magerun2.phar" "$GITHUB_WORKSPACE/magento"
+        run: bash tests/phar-test.sh "./robusta-magerun2.phar" "$GITHUB_WORKSPACE/magento"

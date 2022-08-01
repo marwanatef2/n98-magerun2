@@ -14,9 +14,9 @@
         "vendor/twig/twig/src"
     ],
     "replacements": {
-        "application_name": "n98-magerun2"
+        "application_name": "robusta-magerun2"
     },
     "git-commit-short": "git_commit_short",
     "stub": "build/phar/_cli_stub.php",
-    "output": "n98-magerun2.phar"
+    "output": "robusta-magerun2.phar"
 }

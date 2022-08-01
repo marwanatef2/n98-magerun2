@@ -12,7 +12,7 @@ header()
     cat <<EOF
 #!/bin/bash
 # Installation:
-#  Copy to /etc/bash_completion.d/n98-magerun2.phar
+#  Copy to /etc/bash_completion.d/robusta-magerun2.phar
 # or
 #  Append to ~/.bash_completion
 # open new or restart existing shell session
@@ -21,8 +21,8 @@ EOF
 }
 
 base=magerun2
-name=n98-${base}
-outfile=res/autocompletion/bash/n98-magerun2.phar.bash
+name=robusta-${base}
+outfile=res/autocompletion/bash/robusta-magerun2.phar.bash
 
 if [[ ! -e "bin/${name}" ]]; then
 	>&2 echo "error: could not find 'bin/${name}' script"
