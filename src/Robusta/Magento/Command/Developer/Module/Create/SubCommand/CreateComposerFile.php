@@ -15,11 +15,7 @@ class CreateComposerFile extends AbstractSubCommand
      */
     public function execute()
     {
-        if ($this->config->getBool('isModmanMode')) {
-            $outFile = $this->config->getString('modmanRootFolder') . '/composer.json';
-        } else {
-            $outFile = $this->config->getString('moduleDirectory') . '/composer.json';
-        }
+        $outFile = $this->config->getString('moduleDirectory') . '/composer.json';
 
         \file_put_contents(
             $outFile,

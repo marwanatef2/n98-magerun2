@@ -5,22 +5,22 @@ namespace Robusta\Magento\Command\Developer\Module\Create\SubCommand;
 use Robusta\Magento\Command\SubCommand\AbstractSubCommand;
 
 /**
- * Class CreateModuleEventsFile
+ * Class CreateGitlabCIFile
  * @package Robusta\Magento\Command\Developer\Module\Create\SubCommand
  */
-class CreateModuleEventsFile extends AbstractSubCommand
+class CreateGitlabCIFile extends AbstractSubCommand
 {
     /**
      * @return void
      */
     public function execute()
     {
-        $outFile = $this->config->getString('moduleDirectory') . '/etc/events.xml';
+        $outFile = $this->config->getString('moduleDirectory') . '/.gitlab-ci.yml';
 
         \file_put_contents(
             $outFile,
             $this->getCommand()->getHelper('twig')->render(
-                'dev/module/create/app/code/module/etc/events.xml.twig',
+                'dev/module/create/.gitlab-ci.yml.twig',
                 $this->config->getArray('twigVars')
             )
         );

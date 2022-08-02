@@ -17,11 +17,7 @@ class CreateReadmeFile extends AbstractSubCommand
      */
     public function execute()
     {
-        if ($this->config->getBool('isModmanMode')) {
-            $outFile = $this->config->getString('modmanRootFolder') . '/readme.md';
-        } else {
-            $outFile = $this->config->getString('moduleDirectory') . '/readme.md';
-        }
+        $outFile = $this->config->getString('moduleDirectory') . '/readme.md';
 
         \file_put_contents(
             $outFile,

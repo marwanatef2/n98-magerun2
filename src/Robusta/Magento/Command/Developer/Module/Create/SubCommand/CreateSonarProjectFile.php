@@ -5,22 +5,22 @@ namespace Robusta\Magento\Command\Developer\Module\Create\SubCommand;
 use Robusta\Magento\Command\SubCommand\AbstractSubCommand;
 
 /**
- * Class CreateModuleConfigFile
+ * Class CreateSonarProjectFile
  * @package Robusta\Magento\Command\Developer\Module\Create\SubCommand
  */
-class CreateModuleConfigFile extends AbstractSubCommand
+class CreateSonarProjectFile extends AbstractSubCommand
 {
     /**
      * @return void
      */
     public function execute()
     {
-        $outFile = $this->config->getString('moduleDirectory') . '/etc/config.xml';
+        $outFile = $this->config->getString('moduleDirectory') . '/sonar-project.properties';
 
         \file_put_contents(
             $outFile,
             $this->getCommand()->getHelper('twig')->render(
-                'dev/module/create/app/code/module/etc/config.xml.twig',
+                'dev/module/create/sonar-project.properties.twig',
                 $this->config->getArray('twigVars')
             )
         );

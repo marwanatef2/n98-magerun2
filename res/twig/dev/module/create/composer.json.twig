@@ -1,15 +1,11 @@
 {
-    "name": "{{vendorNamespace | lower }}/module-{{ moduleName | lower }}",
+    "name": "{{vendorNamespace | lower }}/{{ packageName }}",
     "description": "{% if description %}{{ description }}{% else %}Add your description here{% endif %}",
     "type": "magento2-module",
+    "version": "1.0.0",
     "license": [
-        "proprietary"
-    ],
-    "authors":[
-        {
-            "name":"{% if authorName %}{{ authorName }}{% else %}Add your name here{% endif %}",
-            "email":"{% if authorEmail %}{{ authorEmail  }}{% else %}Add your email address here{% endif %}"
-        }
+        "OSL-3.0",
+        "AFL-3.0"
     ],
     "require": {
     },
