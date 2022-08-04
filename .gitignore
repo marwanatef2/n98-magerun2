@@ -14,6 +14,8 @@
 
 .idea
 
+# VSCode
+.vscode
 
 phpunit.xml
 .php-cs-fixer.cache

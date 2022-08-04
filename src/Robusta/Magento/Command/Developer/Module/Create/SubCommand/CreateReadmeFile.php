@@ -17,7 +17,7 @@ class CreateReadmeFile extends AbstractSubCommand
      */
     public function execute()
     {
-        $outFile = $this->config->getString('moduleDirectory') . '/readme.md';
+        $outFile = $this->config->getString('moduleDirectory') . '/README.md';
 
         \file_put_contents(
             $outFile,

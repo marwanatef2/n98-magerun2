@@ -21,7 +21,7 @@ class CreateCommand extends AbstractMagentoCommand
     protected function configure()
     {
         $this
-            ->setName('dev:module:create')
+            ->setName('module:create')
             ->addArgument('moduleName', InputArgument::REQUIRED, 'Name of your module.')
             ->addOption('enable', 'e', InputOption::VALUE_NONE, 'Enable module after creation')
             ->addOption('add-strict-types', null, InputOption::VALUE_NONE, 'Add strict_types declaration to generated PHP files')
@@ -48,6 +48,9 @@ class CreateCommand extends AbstractMagentoCommand
         $this->detectMagento($output);
         
         $moduleName = ucfirst($input->getArgument('moduleName'));
+        if (strpos($moduleName, 'Robusta_') !== false) {
+            $moduleName = explode('Robusta_', $moduleName)[1];
+        }
         $packageName = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '-$0', $moduleName)), '-');
         
         $configBag->setString('magentoRootFolder', $this->_magentoRootFolder);
@@ -61,9 +64,11 @@ class CreateCommand extends AbstractMagentoCommand
         $subCommandFactory->create('CreateModuleFolders')->execute();
         $subCommandFactory->create('CreateModuleRegistrationFiles')->execute();
         $subCommandFactory->create('CreateReadmeFile')->execute();
+        $subCommandFactory->create('CreateChangelogFile')->execute();
         $subCommandFactory->create('CreateComposerFile')->execute();
         $subCommandFactory->create('CreateSonarProjectFile')->execute();
         $subCommandFactory->create('CreateGitlabCIFile')->execute();
+        $subCommandFactory->create('CreateGitlabIssuesAndMRsTemplatesFiles')->execute();
     }
 
     private function initView(InputInterface $input, ConfigBag $configBag)

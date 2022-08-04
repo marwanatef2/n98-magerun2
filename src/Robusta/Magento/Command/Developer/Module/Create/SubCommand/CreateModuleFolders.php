@@ -33,5 +33,13 @@ class CreateModuleFolders extends AbstractSubCommand
         // Add etc folder
         mkdir($moduleDir . '/etc');
         $this->output->writeln('<info>Created directory: <comment>' . $moduleDir . '/etc<comment></info>');
+
+        // Add gitlab issues & MRs templates folder
+        mkdir($moduleDir . '/.gitlab');
+        $this->output->writeln('<info>Created directory: <comment>' . $moduleDir . '/.gitlab<comment></info>');
+        mkdir($moduleDir . '/.gitlab/issue_templates');
+        $this->output->writeln('<info>Created directory: <comment>' . $moduleDir . '/.gitlab<comment></info>');
+        mkdir($moduleDir . '/.gitlab/merge_request_templates');
+        $this->output->writeln('<info>Created directory: <comment>' . $moduleDir . '/.gitlab<comment></info>');
     }
 }
