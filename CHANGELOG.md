@@ -1,5 +1,14 @@
 RECENT CHANGES
 ==============
+5.2.1
+-----
+
+- Docs: Update ReadMe
+
+5.2.0
+-----
+
+- Feat: Customize module skeleton creation command to generate robusta's module template
 
 5.1.0
 -----
