@@ -1,7 +1,7 @@
 {
     "name": "robusta/magerun2",
     "description": "Tools for managing Magento projects and installations",
-    "version": "v5.2.0",
+    "version": "v5.2.2",
     "license": "MIT",
     "homepage": "https://github.com/marwanatef2/n98-magerun2",
     "keywords": [

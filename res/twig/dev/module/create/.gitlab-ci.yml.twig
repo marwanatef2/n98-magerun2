@@ -1,6 +1,8 @@
 stages:
     - lint
     - analysis
+    - tag
+    - publish
 
 image: innobyte/magento2-gitlab-ci:7.3
 
@@ -42,3 +44,42 @@ sonarqube-check:
     only:
         - master
         - merge_requests
+
+tagging:
+    stage: tag
+    tags:
+        - ecommerce
+    before_script:
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        - version=$(cat composer.json | grep version | head -1 | awk -F':' '{ print $2 }' | sed 's/[version,:]//g' | sed 's/[\", ]//g')
+    script:
+        - git tag "v$version"
+        - git push --tags https://group-access-token:${GROUP_ACCESS_TOKEN}@$CI_SERVER_HOST/$CI_PROJECT_PATH
+    only:
+        - master
+
+packaging:
+    image: curlimages/curl:latest
+    stage: publish
+    tags:
+        - ecommerce
+    variables:
+        URL: "$CI_SERVER_PROTOCOL://$CI_SERVER_HOST:$CI_SERVER_PORT/api/v4/projects/$CI_PROJECT_ID/packages/composer?job_token=$CI_JOB_TOKEN"
+    before_script:
+        - version=$(cat composer.json | grep version | head -1 | awk -F':' '{ print $2 }' | sed 's/[version,:]//g' | sed 's/[\", ]//g')
+    script:
+        - tag=$(echo "tag=v$version")
+        - insecure=$([ "$CI_SERVER_PROTOCOL" = "http" ] && echo "--insecure" || echo "")
+        - response=$(curl -s -w "\n%{http_code}" $insecure --data $tag $URL)
+        - code=$(echo "$response" | tail -n 1)
+        - body=$(echo "$response" | head -n 1)
+        # Output state information
+        - if [ $code -eq 201 ]; then
+            echo "Package created - Code $code - $body";
+          else
+            echo "Could not create package - Code $code - $body";
+            exit 1;
+          fi
+    only:
+        - master

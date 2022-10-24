@@ -1,5 +1,10 @@
 RECENT CHANGES
 ==============
+5.2.2
+-----
+
+- Add: tag & publish stages to gitlab ci file in robusta's module template
+
 5.2.1
 -----
 
