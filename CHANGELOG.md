@@ -1,5 +1,10 @@
 RECENT CHANGES
 ==============
+5.2.3
+-----
+
+- Fix: Return type of module creation command
+
 5.2.2
 -----
 

@@ -32,7 +32,7 @@ class CreateCommand extends AbstractMagentoCommand
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return int|void
+     * @return int
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -69,6 +69,8 @@ class CreateCommand extends AbstractMagentoCommand
         $subCommandFactory->create('CreateSonarProjectFile')->execute();
         $subCommandFactory->create('CreateGitlabCIFile')->execute();
         $subCommandFactory->create('CreateGitlabIssuesAndMRsTemplatesFiles')->execute();
+
+        return 0;
     }
 
     private function initView(InputInterface $input, ConfigBag $configBag)
